@@ -1,0 +1,31 @@
+{
+    "name": "Solana Hackerhouse #0001",
+    "symbol": "SHH",
+    "description": "Collection of 3 Solana Hacker House photos on the blockchain. This is the number 1/3.",
+    "seller_fee_basis_points": 500,
+    "image": "0.png",
+    "attributes": [
+        {
+            "trait_type": "Color",
+            "value": "Dark blue"
+        }
+    ],
+    "properties": {
+        "creators": [
+            {
+                "address": "H3ywjXDbTr2CAVQXhVcBs9jE5aES9txZM93tR2XUB43w",
+                "share": 100
+            }
+        ],
+        "files": [
+            {
+                "uri": "0.png",
+                "type": "image/png"
+            }
+        ]
+    },
+    "collection": {
+        "name": "dark",
+        "family": "hackerhouse"
+    }
+}
