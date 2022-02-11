@@ -13,6 +13,7 @@ import {
   getNetworkToken,
   CIVIC
 } from './helpers';
+import CountdownTimer from '../CountdownTimer';
 
 const { SystemProgram } = web3;
 const opts = {
@@ -393,18 +394,40 @@ const CandyMachine = ({ walletAddress }) => {
     });
   };
 
-  return (
-    // Only show this if machineStats is available
-    CandyMachine && (
-      <div className="machine-container">
-        <p>{`Drop Date: ${CandyMachine.state.goLiveDateTimeString}`}</p>
-        <p>{`Items Minted: ${CandyMachine.state.itemsRedeemed} / ${CandyMachine.state.itemsAvailable}`}</p>
-        <button className="cta-button mint-button" onClick={mintToken}>
-            Mint NFT
-        </button>
-      </div>
-    )
-  );
+  // Create render function
+const renderDropTimer = () => {
+  // Get the current date and dropDate in a JavaScript Date object
+  const currentDate = new Date();
+  const dropDate = new Date(CandyMachine.state.goLiveData * 1000);
+
+  // If currentDate is before dropDate, render our Countdown component
+  if (currentDate < dropDate) {
+    console.log('Before drop date!');
+    // Don't forget to pass over your dropDate!
+    return <CountdownTimer dropDate={dropDate} />;
+  }
+
+  // Else let's just return the current drop date
+  return <p>{`Drop Date: ${CandyMachine.state.goLiveDateTimeString}`}</p>;
+};
+
+return (
+  CandyMachine.state && (
+    <div className="machine-container">
+      {/* Add this at the beginning of our component */}
+      {renderDropTimer()}
+      <p>{`Items Minted: ${CandyMachine.state.itemsRedeemed} / ${CandyMachine.state.itemsAvailable}`}</p>
+      <button
+        className="cta-button mint-button"
+        onClick={mintToken}
+      >
+        Mint NFT
+      </button>
+      {/* {mints.length > 0 && renderMintedItems()}  // This two lines be broken cause v1 to v2 and went missing
+      {isLoadingMints && <p>LOADING MINTS...</p>} */}
+    </div>
+  )
+);
 
 };
 
