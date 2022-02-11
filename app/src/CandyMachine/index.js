@@ -395,39 +395,44 @@ const CandyMachine = ({ walletAddress }) => {
   };
 
   // Create render function
-const renderDropTimer = () => {
-  // Get the current date and dropDate in a JavaScript Date object
-  const currentDate = new Date();
-  const dropDate = new Date(CandyMachine.state.goLiveData * 1000);
+  const renderDropTimer = () => {
+    // Get the current date and dropDate in a JavaScript Date object
+    const currentDate = new Date();
+    const dropDate = new Date(CandyMachine.state.goLiveData * 1000);
 
-  // If currentDate is before dropDate, render our Countdown component
-  if (currentDate < dropDate) {
-    console.log('Before drop date!');
-    // Don't forget to pass over your dropDate!
-    return <CountdownTimer dropDate={dropDate} />;
-  }
+    // If currentDate is before dropDate, render our Countdown component
+    if (currentDate < dropDate) {
+      console.log('Before drop date!');
+      // Don't forget to pass over your dropDate!
+      return <CountdownTimer dropDate={dropDate} />;
+    }
 
-  // Else let's just return the current drop date
-  return <p>{`Drop Date: ${CandyMachine.state.goLiveDateTimeString}`}</p>;
-};
+    // Else let's just return the current drop date
+    return <p>{`Drop Date: ${CandyMachine.state.goLiveDateTimeString}`}</p>;
+  };
 
-return (
-  CandyMachine.state && (
-    <div className="machine-container">
-      {/* Add this at the beginning of our component */}
-      {renderDropTimer()}
-      <p>{`Items Minted: ${CandyMachine.state.itemsRedeemed} / ${CandyMachine.state.itemsAvailable}`}</p>
-      <button
-        className="cta-button mint-button"
-        onClick={mintToken}
-      >
-        Mint NFT
-      </button>
-      {/* {mints.length > 0 && renderMintedItems()}  // This two lines be broken cause v1 to v2 and went missing
-      {isLoadingMints && <p>LOADING MINTS...</p>} */}
-    </div>
-  )
-);
+  return (
+    CandyMachine && CandyMachine.state && (
+      <div className="machine-container">
+        {renderDropTimer()}
+        <p>{`Items Minted: ${CandyMachine.state.itemsRedeemed} / ${CandyMachine.state.itemsAvailable}`}</p>
+        {/* Check to see if these properties are equal! */}
+        {CandyMachine.state.itemsRedeemed === CandyMachine.state.itemsAvailable ? (
+          <p className="sub-text">Sold Out 🙊</p>
+        ) : (
+          <button
+            className="cta-button mint-button"
+            onClick={mintToken}
+          >
+            Mint NFT
+          </button>
+        )}
+        {/* Next two lines are ghosts lost in v1 to v2  */}
+        {/* {mints.length > 0 && renderMintedItems()}
+        {isLoadingMints && <p>LOADING MINTS...</p>} */}
+      </div>
+    )
+  );
 
 };
 
