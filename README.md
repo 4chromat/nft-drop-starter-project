@@ -1,3 +1,4 @@
+### Location triggered NFTs
 
 ## To get started
 1. cd into the `app` folder
